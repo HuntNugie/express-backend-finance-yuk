@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import {config} from "dotenv";
 import route from "./src/routes/index.js";
+import {log} from "./src/utils/log.js";
 config();
 // instance express
 const app = express();
@@ -19,7 +20,6 @@ app.use(
 app.use(cookieParser());
 
 // untuk routing
-app.use(route)
+app.use(log, route);
 
-
-export default app
+export default app;
