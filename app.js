@@ -15,6 +15,8 @@ app.use(
         credentials: true,
     })
 );
+// setup untuk json
+app.use(express.json());
 
 // setup cookie parser
 app.use(cookieParser());

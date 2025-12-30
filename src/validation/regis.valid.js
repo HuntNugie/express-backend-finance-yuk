@@ -22,6 +22,7 @@ export const regisValid = [
         if (value !== req.body.password) {
             throw new Error("password dan konfirmasi password salah");
         }
+        return true
     }),
     body("nama")
     .notEmpty()
