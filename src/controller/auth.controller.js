@@ -14,3 +14,7 @@ export const register = async (req, res) => {
         });
     }
 };
+
+export const checkMe = (req, res) => {
+    return res.json({status: true, data: req.payload});
+};
