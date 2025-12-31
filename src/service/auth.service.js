@@ -1,8 +1,7 @@
 import User from "../models/User.js";
-import {hashPass} from "../utils/bcrypt.js";
+import {comparePass, hashPass} from "../utils/bcrypt.js";
 
 export const registerService = async (data) => {
-    console.log(data)
     const hash = await hashPass(data.password);
     try {
         const req = await User.create({
@@ -26,3 +25,17 @@ export const registerService = async (data) => {
         throw new Error(error)
     }
 };
+
+
+export const loginService = async(data,pwUser)=>{
+    const {email,password,profile} = data;
+    const check = await comparePass(pwUser,password);
+    if(!check){
+        throw new Error("email atau password salah")
+    }
+    const result = {
+        email,
+        profile
+    }
+    return result
+}
