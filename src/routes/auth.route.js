@@ -1,7 +1,7 @@
 import {Router} from "express";
 import {regisValid} from "../validation/regis.valid.js";
 import {handleValidation} from "../middleware/handleValidation.middleware.js";
-import {checkMe, login, register} from "../controller/auth.controller.js";
+import {checkMe, login, logout, register} from "../controller/auth.controller.js";
 import {isAuth} from "../middleware/isAuth.middleware.js";
 import { loginValid } from "../validation/login.valid.js";
 
@@ -15,4 +15,7 @@ authRoute.get("/me", isAuth, checkMe);
 
 // untuk login
 authRoute.post("/login",loginValid,handleValidation,login)
+
+// untuk logout
+authRoute.post("/logout",isAuth,logout)
 export default authRoute;
