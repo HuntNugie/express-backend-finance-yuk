@@ -41,3 +41,16 @@ export const login = async (req, res) => {
         return res.status(401).json({status: false, error: error.message});
     }
 };
+
+// untuk logout
+export const logout = async (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+    });
+    return res.json({
+        status: true,
+        message: "berhasil logout",
+    });
+};
