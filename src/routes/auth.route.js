@@ -4,6 +4,7 @@ import {handleValidation} from "../middleware/handleValidation.middleware.js";
 import {checkMe, login, logout, register} from "../controller/auth.controller.js";
 import {isAuth} from "../middleware/isAuth.middleware.js";
 import { loginValid } from "../validation/login.valid.js";
+import OauthRoute from "./Oauth.route.js";
 
 const authRoute = Router();
 
@@ -18,4 +19,7 @@ authRoute.post("/login",loginValid,handleValidation,login)
 
 // untuk logout
 authRoute.post("/logout",isAuth,logout)
+
+// untuk Oauth google
+authRoute.use("/google",OauthRoute)
 export default authRoute;

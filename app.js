@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import {config} from "dotenv";
 import route from "./src/routes/index.js";
 import {log} from "./src/utils/log.js";
+import passport from "passport";
+import "./src/config/passport.js"
 config();
 // instance express
 const app = express();
@@ -21,6 +23,8 @@ app.use(express.json());
 // setup cookie parser
 app.use(cookieParser());
 
+// setup untuk passport google Oauth
+app.use(passport.initialize())
 // untuk routing
 app.use(log, route);
 

@@ -36,7 +36,7 @@ export const login = async (req, res) => {
             secure: true,
             maxAge: 60 * 60 * 1000,
         });
-        return res.json(result);
+        return res.json({status:true,data:result});
     } catch (error) {
         return res.status(401).json({status: false, error: error.message});
     }
@@ -53,4 +53,17 @@ export const logout = async (req, res) => {
         status: true,
         message: "berhasil logout",
     });
+};
+
+// untuk callback Oauth google
+export const GoogleCallback = async (req, res) => {
+    const user = req.user;
+    const token = tokenSign(user);
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 60 * 60 * 1000,
+    });
+    return res.redirect(`${process.env.ORIGIN}/dashboard`);
 };
