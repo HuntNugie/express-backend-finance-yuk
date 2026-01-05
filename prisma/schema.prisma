@@ -24,6 +24,7 @@ model User{
 
   // relasi ke model user
   profile User_profile?
+  wallet Account?
 }
 
 enum JL{
@@ -41,4 +42,36 @@ model User_profile{
   // relasi
   user_id Int @unique
   user User @relation(fields: [user_id],references: [id])
+  
+}
+
+enum typeTransaksi{
+  PEMASUKAN
+  PENGELUARAN
+}
+
+
+model Account{
+  id Int @id @default(autoincrement())
+  user_id Int @unique
+  saldo Decimal @default(0)
+  updated_at DateTime?
+  created_at DateTime @default(now())
+  // relasi ke tabel transaksi one to many
+  transaksi Transaksi[]
+  // relasi ke table user one to one
+  user User @relation(fields: [user_id], references: [id])
+}
+
+model Transaksi{
+  id Int @id @default(autoincrement())
+  name String?
+  type typeTransaksi
+  jumlah Decimal
+  deskripsi String?
+  created_at DateTime @default(now())
+
+// relasi ke table account one to many
+  account_id Int
+  wallet Account @relation(fields: [account_id],references: [id])
 }
