@@ -28,13 +28,14 @@ export const registerService = async (data) => {
 
 
 export const loginService = async(data,pwUser)=>{
-    const {email,password,profile} = data;
+    const {email,password,profile,wallet} = data;
     const check = await comparePass(pwUser,password);
     if(!check){
         throw new Error("email atau password salah")
     }
     const result = {
         email,
+        wallet,
         profile
     }
     return result

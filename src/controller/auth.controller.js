@@ -1,3 +1,4 @@
+import User from "../models/User.js";
 import {loginService, registerService} from "../service/auth.service.js";
 import {tokenSign} from "../utils/jwt.js";
 import {config} from "dotenv";
@@ -20,8 +21,19 @@ export const register = async (req, res) => {
 };
 
 // untuk checkme
-export const checkMe = (req, res) => {
-    return res.json({status: true, data: req.payload});
+export const checkMe = async (req, res) => {
+    console.log(req.payload)
+    const result = await User.findUnique(
+        {
+            where: {
+                id: req?.payload?.profile?.user_id
+            },
+            include:{
+                profile:true,
+                wallet:true
+            }
+        });
+    return res.json({status: true, data: result});
 };
 
 // untuk login
@@ -36,7 +48,7 @@ export const login = async (req, res) => {
             secure: true,
             maxAge: 60 * 60 * 1000,
         });
-        return res.json({status:true,data:result});
+        return res.json({status: true, data: result});
     } catch (error) {
         return res.status(401).json({status: false, error: error.message});
     }

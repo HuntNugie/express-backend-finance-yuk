@@ -15,7 +15,7 @@ passport.use(
         async (accesToken, refreshToken, profile, done) => {
             try {
                 const email = profile.emails[0].value;
-                let user = await User.findUnique({where: {email}, include: {profile: true}});
+                let user = await User.findUnique({where: {email}, include: {profile: true,wallet:true}});
                 if (!user) {
                     const random = crypto.randomBytes(32).toString("hex");
                     user = await User.create({
@@ -32,6 +32,7 @@ passport.use(
                         },
                         include: {
                             profile: true,
+                            wallet:true
                         },
                     });
                 } else if (!user.googleId) {
@@ -40,12 +41,12 @@ passport.use(
                         data: {
                             googleId: profile.id,
                         },
-                        include: {profile: true},
+                        include: {profile: true,wallet:true},
                     });
                 }
                 const result = {
-                    user_id: user.id,
                     email,
+                    wallet:user.wallet,
                     profile: user.profile,
                 };
                 return done(null, result);

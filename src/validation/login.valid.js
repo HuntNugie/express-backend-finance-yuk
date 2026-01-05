@@ -7,7 +7,7 @@ export const loginValid = [
     .isEmail().withMessage("format email salah").custom(async(value,{req})=>{
         const check = await User.findUnique({
             where:{email:value},
-            include:{profile:true}
+            include:{profile:true,wallet:true}
         });
         if(!check){
             throw new Error("email anda atau password salah")
