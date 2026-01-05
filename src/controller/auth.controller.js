@@ -33,7 +33,12 @@ export const checkMe = async (req, res) => {
                 wallet:true
             }
         });
-    return res.json({status: true, data: result});
+        const response = {
+            email:result.email,
+            wallet:result.wallet,
+            profile:result.profile
+        }
+    return res.json({status: true, data: response});
 };
 
 // untuk login

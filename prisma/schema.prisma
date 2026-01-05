@@ -55,7 +55,7 @@ model Account{
   id Int @id @default(autoincrement())
   user_id Int @unique
   saldo Decimal @default(0)
-  updated_at DateTime?
+  updated_at DateTime @default(now())
   created_at DateTime @default(now())
   // relasi ke tabel transaksi one to many
   transaksi Transaksi[]
