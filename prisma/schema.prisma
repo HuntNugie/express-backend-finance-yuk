@@ -55,7 +55,6 @@ model Account{
   id Int @id @default(autoincrement())
   user_id Int @unique
   saldo Decimal @default(0)
-  updated_at DateTime @default(now())
   created_at DateTime @default(now())
   // relasi ke tabel transaksi one to many
   transaksi Transaksi[]
@@ -67,8 +66,9 @@ model Transaksi{
   id Int @id @default(autoincrement())
   name String?
   type typeTransaksi
-  jumlah Decimal
+  nominal Decimal
   deskripsi String?
+  saldo_akhir Decimal
   created_at DateTime @default(now())
 
 // relasi ke table account one to many
